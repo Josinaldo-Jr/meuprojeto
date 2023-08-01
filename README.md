@@ -1,4 +1,4 @@
-# Aplicação Flask para Iniciantes
+# Meu Projeto - Aplicação Flask para Iniciantes
 
 ![Flask Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Flask_logo.svg/220px-Flask_logo.svg.png)
 
