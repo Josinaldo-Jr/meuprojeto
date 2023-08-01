@@ -1,49 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio|{{title}}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <h1>Contato</h1>
-            <ul class="nav-links">
-                <li><a href="index">Início</a></li>
-                <!-- Adicione mais itens de menu aqui, se desejar -->
-                <li><a href="sobre">Sobre</a></li>
-                <li><a href="contato">Contato</a></li>
-                <li><a href="portfolio">Portfólio</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="contact-info">
-            <h2>Informações de Contato</h2>
-            <p>Email: seuemail@example.com</p>
-            <p>Telefone: (00) 1234-5678</p>
-            <p>Endereço: Rua Exemplo, 1234</p>
-        </section>
-        <section class="contact-form">
-            <h2>Formulário de Contato</h2>
-            <form>
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" required>
+{% extends 'base.html' %}
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+{% block conteudo %}
 
-                <label for="message">Mensagem:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
+<section id="contato">
 
-                <button type="submit">Enviar</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>Contato: seuemail@example.com</p>
-    </footer>
-</body>
-</html>
+    <section class="contact-info">
+        <h2>Informações de Contato</h2>
+        <p>Email: seuemail@example.com</p>
+        <p>Telefone: (00) 1234-5678</p>
+        <p>Endereço: Rua Exemplo, 1234</p>
+    </section>
+    <section class="contact-form">
+        <h2>Formulário de Contato</h2>
+        <form>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Mensagem:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+</section>
+
+{% endblock %}

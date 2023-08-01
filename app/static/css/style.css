@@ -50,6 +50,7 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   flex-grow: 1; /* Definimos flex-grow como 1 para que o conteúdo principal ocupe todo o espaço disponível */
+  width: 100%;
 }
 
 .project {
