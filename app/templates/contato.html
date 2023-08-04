@@ -46,6 +46,21 @@
       </ul>
     {% endif %}
   {% endwith %}
+  {% if dados_formulario %}
+      <p>Dados do Formulário:</p>
+      <p>Nome: {{ dados_formulario.nome }}</p>
+      <p>Email: {{ dados_formulario.email }}</p>
+      <p>Telefone: {{ dados_formulario.phone }}</p>
+      <p>Conteúdo: {{ dados_formulario.message }}</p>
+   {% endif %}
 
+
+  
+
+
+
+ 
 </section>
+
+
 {% endblock %}

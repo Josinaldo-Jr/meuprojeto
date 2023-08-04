@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from app.forms import Contato
 import time
 
@@ -15,11 +15,21 @@ def sobre():
 @app.route('/contato', methods=['GET', 'POST'])
 def contato():
     formulario = Contato()
-    if formulario.validate_on_submit():
-        flash('Seu formulário foi enviado com sucesso!')
-        time.sleep(2)
-        return redirect('/contato')
-    return render_template('contato.html', title='Contato', formulario = formulario)
+    dados_formulario = None
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        message = request.form.get('message')
+
+        dados_formulario = {
+            'name': name,
+            'email': email,
+            'phone': phone,
+            'message': message
+        }
+
+    return render_template('contato.html', title='Contato', formulario = formulario, dados_formulario = dados_formulario)
 
 @app.route('/portfolio')
 def portfolio():
