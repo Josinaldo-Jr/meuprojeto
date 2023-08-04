@@ -3,7 +3,7 @@
 ![Flask Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Flask_logo.svg/220px-Flask_logo.svg.png)
 
 ## Descrição
-
+Repositório criado para organizar meu projeto do Curso Programador de Sistemas - Senac. 
 Este é um projeto simples que apresenta uma aplicação web desenvolvida com o framework Flask, destinado a iniciantes que desejam aprender sobre o desenvolvimento web com Python. Flask é uma das escolhas mais populares para a criação de aplicações web em Python devido à sua simplicidade e flexibilidade.
 
 ## Instalação
@@ -57,7 +57,15 @@ python app.py
 8. Acesse a aplicação no seu navegador usando o endereço http://localhost:5000.
 
 
+9. Se você aprimorou o projeto, contribua adicionando as dependencias que utilizou com o comando abaixo:
+
+```bash
+pip freeze > requirements.txt
+```
+
 ## Autores
+
+- [Josinaldo Júnior](https://github.com/Josinaldo-Jr) - Aluno do curso de Full Stack no SENAC.
 
 
 ## Licença
