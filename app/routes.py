@@ -18,7 +18,7 @@ def contato():
     formulario = Contato()
     dados_formulario = None
 
-    if formulario.validate_on_submit:
+    if formulario.validate_on_submit():
         flash ('Seu formulário foi enviado com sucesso!')
 
         name = formulario.name.data
