@@ -12,6 +12,15 @@
     </section>
     <section class="contact-form">
         <h1>Formulário de Contato</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for mensage in messages %}
+        <div class="alert alert-sucess" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <form action="" method="post">
             {{formulario.csrf_token}}
             <div class="form-group">
@@ -39,27 +48,27 @@
 <section>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-      <ul class=flashes>
-      {% for mensagem in messages %}
+    <ul class=flashes>
+        {% for mensagem in messages %}
         <li>{{ mensagem }}</li>
-      {% endfor %}
-      </ul>
+        {% endfor %}
+    </ul>
     {% endif %}
-  {% endwith %}
-  {% if dados_formulario %}
-      <p>Dados do Formulário:</p>
-      <p>Nome: {{ dados_formulario.nome }}</p>
-      <p>Email: {{ dados_formulario.email }}</p>
-      <p>Telefone: {{ dados_formulario.phone }}</p>
-      <p>Conteúdo: {{ dados_formulario.message }}</p>
-   {% endif %}
-
-
-  
+    {% endwith %}
+    {% if dados_formulario %}
+    <p>Dados do Formulário:</p>
+    <p>Nome: {{ dados_formulario.nome }}</p>
+    <p>Email: {{ dados_formulario.email }}</p>
+    <p>Telefone: {{ dados_formulario.phone }}</p>
+    <p>Conteúdo: {{ dados_formulario.message }}</p>
+    {% endif %}
 
 
 
- 
+
+
+
+
 </section>
 
 

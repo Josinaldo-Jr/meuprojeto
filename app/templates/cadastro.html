@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<main class="container py-4">
+    <div class="register-form">
+        <h2>Cadastro de Usuário</h2>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+    <div class="alert alert-sucess" role="alert">
+        {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+        <form method="post">
+            {{ cadastro.csrf_token }}
+            <div class="form-group">
+                <label for="username">Nome de Usuário</label>
+                {{cadastro.name(class="form-control", placeholder="Digite seu nome de usuário")}}
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                {{cadastro.email(class="form-control", placeholder="Digite seu e-mail")}}
+                
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                {{cadastro.password(class="form-control", placeholder="Digite sua senha")}}
+            </div>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+</main>
+
+{% endblock %}
