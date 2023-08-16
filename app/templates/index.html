@@ -2,6 +2,15 @@
 
 {% block conteudo %}
 <section id="index" class="proposal">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+<div class="alert alert-sucess" role="alert">
+    {{ msg}}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
 
     <h2>Proposta do Site para Atividade Acadêmica</h2>
     <p>Este site foi desenvolvido como parte da atividade acadêmica do curso de Programador de Sistemas no SENAC-RN. O

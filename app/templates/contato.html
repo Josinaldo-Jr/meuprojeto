@@ -12,15 +12,7 @@
     </section>
     <section class="contact-form">
         <h1>Formulário de Contato</h1>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for mensage in messages %}
-        <div class="alert alert-sucess" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+       
         <form action="" method="post">
             {{formulario.csrf_token}}
             <div class="form-group">

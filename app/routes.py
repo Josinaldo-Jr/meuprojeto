@@ -1,7 +1,8 @@
 from app import app, db
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, flash, session
 from app.forms import Contato, Cadastro
 from app.models import ContatoModels, CadastroModels
+import time
 
 @app.route('/')
 @app.route('/index')
@@ -48,18 +49,39 @@ def cadastro():
     cadastro = Cadastro()
 
     if cadastro.validate_on_submit():
-        flash ('Seu cadastro foi realizado com sucesso!')
+           
+        try:
+            name = cadastro.name.data
+            email = cadastro.email.data 
+            password = cadastro.password.data  
+            
+            novo_cadastro = CadastroModels(name = name, email = email, password = password)
+            db.session.add(novo_cadastro)
+            db.session.commit()
+            flash('Seu cadastro foi realizado com sucesso!')
 
-        name = cadastro.name.data
-        email = cadastro.email.data      
-        password = cadastro.password.data  
+        except Exception as e:
+            flash('Ocorreu um erro ao cadastrar! Entre em contato com o suporte: adm@admin.com')
+            print(str(e))
 
-        novo_cadastro = CadastroModels(name = name, email = email, password = password)
-        db.session.add(novo_cadastro)
-        db.session.commit()
     return render_template('cadastro.html', title='Cadastro', cadastro = cadastro)
 
 
-@app.route('/login')
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        user = CadastroModels.query.filter_by(email = email, password = password).first()
+        
+        if user and user.password == password:
+            session['email'] = user.id
+            flash('Seja bem vindo')
+            time.sleep(1)
+            return redirect(url_for("index"))
+        else:
+            flash('Senha ou e-mail incorreto!')    
+
+
     return render_template('login.html', title='Login')
