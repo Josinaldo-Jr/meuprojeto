@@ -92,23 +92,32 @@ def login():
 def sair():
     session.pop('email', None)
     session.pop('name', None)
+    session.pop('password', None)
     return redirect(url_for('login'))
 
 
-@app.route('/editar', methods = ['GET', 'POST'])
+@app.route('/editar', methods=['GET', 'POST'])
 def editar():
 
     if 'email' not in session:
         return redirect(url_for('login'))
-    usuario = CadastroModels.query.filter_by(email= session['email']).first()
+    usuario = CadastroModels.query.filter_by(email=session['email']).first()
+    
     if request.method == 'POST':
         usuario.name = request.form.get('name')
         usuario.email = request.form.get('email')
         password = request.form.get('password')
-        usuario.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        
+        if password:  
+            usuario.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        
         db.session.commit()
+        session['email'] = usuario.email
+        session['name'] = usuario.name
+        
         flash('Seus dados foram editados com sucesso!')
     
-
-
-    return render_template('editar.html', title='Editar Usuário', usuario = usuario)
+    # Descriptografar a senha antes de renderizar o template
+    usuario.password = bcrypt.check_password_hash(usuario.password, usuario.password)
+    
+    return render_template('editar.html', title='Editar Usuário', usuario=usuario)

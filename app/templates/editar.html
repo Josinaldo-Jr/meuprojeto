@@ -17,17 +17,22 @@
         <form method="post">
             <div class="form-group">
                 <label for="username">Editar Nome de Usuário</label>
-                <input type="text" name="name" value="{{session['name']}}" class="form-control">
+                <input type="text" name="name" value="{{session['name']}}" class="form-control" required> 
             </div>
             <div class="form-group">
                 <label for="email">Editar E-mail</label>
-                <input type="email" name="email" class="form-control" value="{{session['email']}}"> 
+                <input type="email" name="email" class="form-control" value="{{session['email']}}" required> 
                 
             </div>
-            <div class="form-group">
-                <label for="password">Editar Senha</label>
-                <input type="password" name="password" class="form-control" placeholder="Digite sua nova senha">
-            </div>
+           
+
+<div class="form-group">
+    <label for="password">Editar Senha</label>
+    <input type="password" name="password" class="form-control" value="{{ usuario.password }}" required>
+</div>
+
+
+
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
     </div>
