@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<main class="container py-4">
+    <div class="register-form">
+        <h2>Editar Usuário</h2>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+    <div class="alert alert-sucess" role="alert">
+        {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Editar Nome de Usuário</label>
+                <input type="text" name="name" value="{{session['name']}}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Editar E-mail</label>
+                <input type="email" name="email" class="form-control" value="{{session['email']}}"> 
+                
+            </div>
+            <div class="form-group">
+                <label for="password">Editar Senha</label>
+                <input type="password" name="password" class="form-control" placeholder="Digite sua nova senha">
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </form>
+    </div>
+</main>
+
+{% endblock %}

@@ -93,3 +93,22 @@ def sair():
     session.pop('email', None)
     session.pop('name', None)
     return redirect(url_for('login'))
+
+
+@app.route('/editar', methods = ['GET', 'POST'])
+def editar():
+
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    usuario = CadastroModels.query.filter_by(email= session['email']).first()
+    if request.method == 'POST':
+        usuario.name = request.form.get('name')
+        usuario.email = request.form.get('email')
+        password = request.form.get('password')
+        usuario.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        db.session.commit()
+        flash('Seus dados foram editados com sucesso!')
+    
+
+
+    return render_template('editar.html', title='Editar Usuário', usuario = usuario)
