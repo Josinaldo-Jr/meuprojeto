@@ -2,7 +2,7 @@
 
 {% block conteudo %}
 
-<section id="portfolio">
+<main id="portfolio">
 
     <section id="projeto1" class="project">
         <h2>Projeto 1</h2>
@@ -13,6 +13,16 @@
         <h2>Projeto 2</h2>
         <p>Descrição do Projeto 2.</p>
         <img src="https://i1.sndcdn.com/artworks-9zjbdSTTtQirsMcM-6gGyGw-t500x500.jpg" alt="Imagem do Projeto 2">
+        <a href="
+
+        {% if session['email'] %}
+        {{ url_for('projetoI') }}
+        {% else %}
+        {{ url_for('login') }}        
+        {% endif %}
+        
+        
+        ">Saiba mais</a>
     </section>
     <!-- Adicione mais projetos aqui, se desejar -->
     <section id="projeto1" class="project">
@@ -20,13 +30,32 @@
         <p>Descrição do Projeto 1.</p>
         <img src="https://imagens.tiespecialistas.com.br/2016/06/robo_inteligencia_artificial_ia.jpg"
             alt="Imagem do Projeto 1">
+            <a href="
+        
+            {% if session['email'] %}
+            {{ url_for('projetoI') }}
+            {% else %}
+            {{ url_for('login') }}        
+            {% endif %}
+            
+            
+            ">Saiba mais</a>
     </section>
     <section id="projeto2" class="project">
         <h2>Projeto 2</h2>
         <p>Descrição do Projeto 2.</p>
         <img src="https://aca.org.br/wp-content/uploads/2023/02/Formato-padrao-site-49.png" alt="Imagem do Projeto 2">
+        <a href="
+        
+        {% if session['email'] %}
+        {{ url_for('projetoI') }}
+        {% else %}
+        {{ url_for('login') }}        
+        {% endif %}
+        
+        
+        ">Saiba mais</a>
     </section>
-
-</section>
+</main>
 
 {% endblock %}

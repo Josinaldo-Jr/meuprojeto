@@ -44,7 +44,6 @@ def contato():
 def portfolio():
     return render_template('portfolio.html', title='Portfólio')
 
-
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     cadastro = Cadastro()
@@ -72,19 +71,23 @@ def cadastro():
 def login():
     if request.method == "POST":
         email = request.form.get('email')
-        password = request.form.get('password')
-        
+        password = request.form.get('password')        
         user = CadastroModels.query.filter_by(email = email).first()
         
         if user and check_password_hash(user.password, password):
             session['email'] = user.email
             session['name'] = user.name
+            session['neighborhood'] = user.neighborhood
+            session['state'] = user.state
+            session['street'] = user.street
+            session['cpf'] = user.cpf
+            session['phone'] = user.phone
+            session['city'] = user.city
             flash('Seja bem vindo')
             time.sleep(1)
             return redirect(url_for("index"))
         else:
-            flash('Senha ou e-mail incorreto!')    
-
+            flash('Senha ou e-mail incorreto!')   
 
     return render_template('login.html', title='Login')
 
@@ -104,20 +107,48 @@ def editar():
     usuario = CadastroModels.query.filter_by(email=session['email']).first()
     
     if request.method == 'POST':
-        usuario.name = request.form.get('name')
-        usuario.email = request.form.get('email')
-        password = request.form.get('password')
+        current_password = request.form.get('current_password')
+        if check_password_hash(usuario.password, current_password):
+            usuario.name = request.form.get('name')
+            usuario.email = request.form.get('email')   
+            new_password = request.form.get('new_password')
+            if new_password:  
+                usuario.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+
+            usuario.street = request.form.get('street')
+            usuario.neighborhood = request.form.get('neighborhood')
+            usuario.city = request.form.get('city')
+            usuario.state = request.form.get('state')    
+
+            db.session.commit()
+
+            session['email'] = usuario.email
+            session['name'] = usuario.name
+            session['email'] = usuario.email
+            session['name'] = usuario.name
+            session['neighborhood'] = usuario.neighborhood
+            session['state'] = usuario.state
+            session['street'] = usuario.street
+            session['cpf'] = usuario.cpf
+            session['phone'] = usuario.phone
+            session['city'] = usuario.city
         
-        if password:  
-            usuario.password = bcrypt.generate_password_hash(password).decode('utf-8')
-        
-        db.session.commit()
-        session['email'] = usuario.email
-        session['name'] = usuario.name
-        
-        flash('Seus dados foram editados com sucesso!')
-    
-    # Descriptografar a senha antes de renderizar o template
-    usuario.password = bcrypt.check_password_hash(usuario.password, usuario.password)
-    
+            flash('Seus dados foram editados com sucesso!')
+            return redirect(url_for('editar'))
+        else:
+            flash('Senha atual incorreta!')
+       
     return render_template('editar.html', title='Editar Usuário', usuario=usuario)
+
+@app.route('/excluir_conta', methods=['GET'])
+def excluir_conta():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    
+    usuario = CadastroModels.query.filter_by(email = session['email']).first()
+    db.session.delete(usuario)
+    db.session.commit()
+    session.clear()
+
+    flash('Sua conta foi excluida com sucesso!')
+    return redirect(url_for('cadastro'))
