@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, PasswordField, SelectField
-from wtforms.validators import DataRequired, Email, Length, Regexp
+from wtforms.validators import DataRequired
 from flask_wtf.csrf import CSRFProtect
 
 class Contato(FlaskForm):
@@ -12,7 +12,7 @@ class Contato(FlaskForm):
 
 class Cadastro(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    email = EmailField('email', validators=[DataRequired()])
+    email = EmailField('email', validators=[DataRequired()]) 
     submit = SubmitField('submit')
 
     # novos campos para o cadastro

@@ -7,31 +7,101 @@
         <h2>Editar Usuário</h2>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for msg in messages %}
-    <div class="alert alert-sucess" role="alert">
-        {{ msg }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+        {% for msg in messages %}
+        <div class="alert alert-sucess" role="alert">
+            {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <form method="post">
+            
             <div class="form-group">
                 <label for="username">Editar Nome de Usuário</label>
-                <input type="text" name="name" value="{{session['name']}}" class="form-control" required> 
+                <input type="text" name="name" value="{{session['name']}}" class="form-control" required>
             </div>
+
             <div class="form-group">
                 <label for="email">Editar E-mail</label>
-                <input type="email" name="email" class="form-control" value="{{session['email']}}" required> 
-                
+                <input type="email" name="email" class="form-control" value="{{session['email']}}" required>
             </div>
-           
+            
+            <!-- ------------------------------------ -->
 
-<div class="form-group">
-    <label for="password">Editar Senha</label>
-    <input type="password" name="password" class="form-control" value="{{ usuario.password }}" required>
-</div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" name="cpf" value="{{session['cpf']}}">
+            </div>
 
+            <div class="form-group">
+                <label for="phone">Editar Telefone</label>
+                <input type="text" class="form-control" name="phone" value="{{session['phone']}}">
+            </div>
 
+            <div class="form-group">
+                <label for="street">Editar Endereço (Rua com Número)</label>
+                <input type="text" class="form-control" name="street" value="{{session['street']}}">
+            </div>
+
+            <div class="form-group">
+                <label for="neighborhood">Editar Bairro</label>
+                <input type="text" class="form-control" name="neighborhood" value="{{session['neighborhood']}}">
+            </div>
+
+            <div class="form-group">
+                <label for="city">Editar Cidade</label>
+                <input type="text" class="form-control" name="city" value="{{session['city']}}">
+            </div>
+
+            <div class="form-group">
+                <label for="state">Editar Estado</label>
+                <select class="form-control" name="state">
+                    <option value="AC" {% if session['state'] == 'AC' %}selected{% endif %}>Acre</option>
+                    <option value="AL" {% if session['state'] == 'AL' %}selected{% endif %}>Alagoas</option>
+                    <option value="AP" {% if session['state'] == 'AP' %}selected{% endif %}>Amapá</option>
+                    <option value="AM" {% if session['state'] == 'AM' %}selected{% endif %}>Amazonas</option>
+                    <option value="BA" {% if session['state'] == 'BA' %}selected{% endif %}>Bahia</option>
+                    <option value="CE" {% if session['state'] == 'CE' %}selected{% endif %}>Ceará</option>
+                    <option value="DF" {% if session['state'] == 'DF' %}selected{% endif %}>Distrito Federal</option>
+                    <option value="ES" {% if session['state'] == 'ES' %}selected{% endif %}>Espírito Santo</option>
+                    <option value="GO" {% if session['state'] == 'GO' %}selected{% endif %}>Goiás</option>
+                    <option value="MA" {% if session['state'] == 'MA' %}selected{% endif %}>Maranhão</option>
+                    <option value="MT" {% if session['state'] == 'MT' %}selected{% endif %}>Mato Grosso</option>
+                    <option value="MS" {% if session['state'] == 'MS' %}selected{% endif %}>Mato Grosso do Sul</option>
+                    <option value="MG" {% if session['state'] == 'MG' %}selected{% endif %}>Minas Gerais</option>
+                    <option value="PA" {% if session['state'] == 'PA' %}selected{% endif %}>Pará</option>
+                    <option value="PB" {% if session['state'] == 'PB' %}selected{% endif %}>Paraíba</option>
+                    <option value="PR" {% if session['state'] == 'PR' %}selected{% endif %}>Paraná</option>
+                    <option value="PE" {% if session['state'] == 'PE' %}selected{% endif %}>Pernambuco</option>
+                    <option value="PI" {% if session['state'] == 'PI' %}selected{% endif %}>Piauí</option>
+                    <option value="RJ" {% if session['state'] == 'RJ' %}selected{% endif %}>Rio de Janeiro</option>
+                    <option value="RN" {% if session['state'] == 'RN' %}selected{% endif %}>Rio Grande do Norte</option>
+                    <option value="RS" {% if session['state'] == 'RS' %}selected{% endif %}>Rio Grande do Sul</option>
+                    <option value="RO" {% if session['state'] == 'RO' %}selected{% endif %}>Rondônia</option>
+                    <option value="RR" {% if session['state'] == 'RR' %}selected{% endif %}>Roraima</option>
+                    <option value="SC" {% if session['state'] == 'SC' %}selected{% endif %}>Santa Catarina</option>
+                    <option value="SP" {% if session['state'] == 'SP' %}selected{% endif %}>São Paulo</option>
+                    <option value="SE" {% if session['state'] == 'SE' %}selected{% endif %}>Sergipe</option>
+                    <option value="TO" {% if session['state'] == 'TO' %}selected{% endif %}>Tocantins</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="current_password">Editar Senha atual</label>
+                <input type="password" name="current_password" class="form-control" value="" required>
+
+                {% if errors and 'senha_atual' in errors %}
+                    <small class="text-danger">{{ errors['senha_atual'][0] }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="new_password">Nova Senha</label>
+                <input type="password" class="form-control" name="new_password" value="">
+            </div>
+
+        
+            <!-- ----------------------------------------------- -->
 
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>

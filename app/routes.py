@@ -1,5 +1,5 @@
 from app import app, db, bcrypt
-from flask import render_template, url_for, flash, redirect, request, flash, session
+from flask import render_template, url_for, flash, redirect, request, session
 from app.forms import Contato, Cadastro
 from app.models import ContatoModels, CadastroModels
 from flask_bcrypt import check_password_hash
@@ -14,7 +14,7 @@ def index():
 def sobre():
     return render_template('sobre.html', title='Sobre')
 
-@app.route('/contato', methods=['GET', 'POST'])
+@app.route('/contato', methods=['POST', 'GET'])
 def contato():
     formulario = Contato()
     
@@ -25,26 +25,18 @@ def contato():
         email = formulario.email.data
         phone = formulario.phone.data
         message = formulario.message.data
+
         novo_contato = ContatoModels(name = name, email = email, phone = phone, message = message)
         db.session.add(novo_contato)
         db.session.commit()
-
-        # dados_formulario = {
-        #     'name': name,
-        #     'email': email,
-        #     'phone': phone,
-        #     'message': message
-        # }
-
-        # for chave, valor in dados_formulario.items():
-        #     print(f'{chave}: {valor}')
+        
     return render_template('contato.html', title='Contato', formulario = formulario)
 
 @app.route('/portfolio')
 def portfolio():
     return render_template('portfolio.html', title='Portfólio')
 
-@app.route('/cadastro', methods=['GET', 'POST'])
+@app.route('/cadastro', methods=['POST', 'GET'])
 def cadastro():
     cadastro = Cadastro()
 
@@ -54,8 +46,25 @@ def cadastro():
             name = cadastro.name.data
             email = cadastro.email.data 
             password = cadastro.password.data  
+
+            cpf = cadastro.cpf.data
+            phone = cadastro.phone.data
+            street = cadastro.street.data
+            neighborhood = cadastro.neighborhood.data
+            city = cadastro.state.data
+            state = cadastro.state.data
+
             hash_password = bcrypt.generate_password_hash(password).decode('utf-8')
-            novo_cadastro = CadastroModels(name = name, email = email, password = hash_password)
+            novo_cadastro = CadastroModels(
+                name = name,
+                email = email,
+                cpf = cpf,
+                phone = phone,
+                street = street,
+                neighborhood = neighborhood,
+                city = city,
+                state = state,
+                password = hash_password)
             db.session.add(novo_cadastro)
             db.session.commit()
             flash('Seu cadastro foi realizado com sucesso!')
@@ -99,7 +108,7 @@ def sair():
     return redirect(url_for('login'))
 
 
-@app.route('/editar', methods=['GET', 'POST'])
+@app.route('/editar', methods=['POST', 'GET'])
 def editar():
 
     if 'email' not in session:
