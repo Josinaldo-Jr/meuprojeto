@@ -28,6 +28,8 @@ cd nome-do-repositorio
 
 ```bash
 python -m venv venv
+ou
+py -3 -m venv nomedamaquinavirtual
 ```
 
 5. Ative o ambiente virtual (caso tenha criado um):
